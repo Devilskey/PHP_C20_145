@@ -5,6 +5,7 @@
     echo("<h3>Bedankt voor u bestelling.</h3><br/>");
     echo("U bestelling wordt bezorgt op: ".$dDelivery."<br/><hr/>");
   }
+  // a new line of comment to test github, 14:19u
 ?>
 <!DOCTYPE html>
 <html>
