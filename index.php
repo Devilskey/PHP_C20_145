@@ -6,6 +6,7 @@
     echo("U bestelling wordt bezorgt op: ".$dDelivery."<br/><hr/>");
   }
   // a new line of comment to test github, 14:19u
+  // The final test @ the end of the lesson, 14:37u
 ?>
 <!DOCTYPE html>
 <html>
