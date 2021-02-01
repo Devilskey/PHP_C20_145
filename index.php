@@ -1,10 +1,35 @@
 <?php
-  if(!empty($_POST)){
+  if(!empty($_POST)){ // TRUE
     //var_dump($_POST);
     $dDelivery = $_POST['dDelivery'];
     echo("<h3>Bedankt voor u bestelling.</h3><br/>");
     echo("U bestelling wordt bezorgt op: ".$dDelivery."<br/><hr/>");
+  } else{// FALSE
+    echo("U bent vergeten een formulier in te vullen");
   }
+  
+  $sDateFieldContent = date('D d M Y');
+  echo($sDateFieldContent."<hr/>");
+
+  $iNumberOne = 125;
+  $iNumberTwo = 67;
+  $bSuccess = false;
+  $sColor = "Blue";
+
+  // == === != >= <= > <  &&  || 
+
+  //      FALSE  OF     FALSE      =  FALSE
+  if(($sColor == "green")||($sColor == "yellow")){ 
+    echo($sColor);      
+  } else{
+    echo("Red");
+  }
+  echo("<hr/>");
+
+// Possible application possibilieties with 4 ingredients
+echo(3*4*3*3);
+
+
   // a new line of comment to test github, 14:19u
   // The final test @ the end of the lesson, 14:37u
 ?>
