@@ -25,8 +25,35 @@ if(!empty($_POST)){                                                             
   $iFunction    =   $_POST['iFunction'];                                        // Forminput function
 }
 
-// ================ Display the registration form =================
+echo("<hr/>");
+// keys                 0    1   2   3
+$aDemoArray = array("String",4,true,5.4);
+var_dump($aDemoArray);
+echo("<hr/>");
+echo($aDemoArray[3]);
+echo("<hr/>");
+$aColors = array(); // Declare an empty array for the colors
+$aColors['Green'] = "groen";
+$aColors['Red'] = "rood";
+$aColors['Blue'] = "blauw";
+$aColors['Purple'] = "paars";
+echo("<hr/>");
+echo("De kleur die u kiest is: ".$aColors['Blue']);
+echo("<hr/>");
+$aFruit = array("Appel","Banaan","Sinasappel","Mango","Kiwi","Framboos");
+var_dump($aFruit);
 
+for($iFruitCounter = 0;$iFruitCounter<=5;$iFruitCounter++){
+  echo("Het lekkerste fruit is de :".$aFruit[$iFruitCounter]."<br/>");
+}
+
+
+
+echo("<hr/>");
+// ================ Display the registration form =================
+//                      Admin        Manager       Main user              User        Guest
+$aFunctions = array("Администратор","Водитель","Лучший пользователь","Пользователь");
+$iTotalFunctions = count($aFunctions);
 echo("
     <doctype html>
     <html>
@@ -44,12 +71,11 @@ echo("
         <p>Адрес электронной почты: <input type='text' name='sEmail'></p>
         <p>Имя пользователя: <input required type='text' name='sUsername'><br/>
         пароль: <input required type='password' name='sPassword'></p>
-        <p>Должность: <select name='iFunction'>
-            <option value='1'>Администратор</option>
-            <option value='2'>Водитель</option>
-            <option value='3'>Лучший пользователь</option>
-            <option value='4'>Пользователь</option>
-        </select></p>
+        <p>Должность: <select name='iFunction'>");
+        for($iFunctionCounter = 0; $iFunctionCounter < $iTotalFunctions; $iFunctionCounter++){
+          echo("<option value='".$iFunctionCounter."'>".$aFunctions[$iFunctionCounter]."</option>");
+        }
+echo("        </select></p>
         <input type='submit' value='Pегистр'>
       </form>      
     </body>
