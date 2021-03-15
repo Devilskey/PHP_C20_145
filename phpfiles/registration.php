@@ -13,64 +13,73 @@
 
 // ======================== Form handling =======================
 if(!empty($_POST)){                                                             // Check if the form is filled
-  var_dump($_POST);
-  $sFirstname   =   $_POST['sFirstname'];                                       // Forminput fistname
-  $sInsertion   =   $_POST['sInsertion'];                                       // Forminput insertion
-  $sSurname     =   $_POST['sSurname'];                                         // Forminput surname
-  $sStreetname  =   $_POST['sStreetname'];                                      // Forminput streetname
-  $iHomenumber  =   $_POST['iHomenumber'];                                      // Forminput homenumber
-  $sEmail       =   $_POST['sEmail'];                                           // Forminput email address
-  $sUsername    =   $_POST['sUsername'];                                        // Forminput username
-  $sPassword    =   $_POST['sPassword'];                                        // Forminput password
-  $iFunction    =   $_POST['iFunction'];                                        // Forminput function
+    // Content of the post to a variable
+    $sFirstname   =   $_POST['sFirstname'];                                       // Forminput fistname
+    $sInsertion   =   $_POST['sInsertion'];                                       // Forminput insertion
+    $sSurname     =   $_POST['sSurname'];                                         // Forminput surname
+    $sStreetname  =   $_POST['sStreetname'];                                      // Forminput streetname
+    $iHomenumber  =   $_POST['iHomenumber'];                                      // Forminput homenumber
+    $sEmail       =   $_POST['sEmail'];                                           // Forminput email address
+    $sUsername    =   $_POST['sUsername'];                                        // Forminput username
+    $sPassword    =   $_POST['sPassword'];                                        // Forminput password
+    $iFunction    =   $_POST['iFunction'];                                        // Forminput function
+    
+    // Fetch current JSON data content
+    // Open the file in 'read' modus
+    $JsonFile = open('JsonFile.json','r'); 
+    // Read the JSON array from the file
+    $aJSONArray = file_get_contents('JsonFile.json');
+    // Convert to JSON array back to a PHP array
+    $aFetchedArray = json_decode($aJSONArray,TRUE);
+    // Close the file again            
+    fclose($JsonFile);
+    
+    $iNumberOfRecords = count($aFetchedArray);
+    $aRegistrationData = $aFetchedArray;
+    // Content of the variables to an array.
+    $aRegistrationData[$iNumberOfRecords] = array(); //Start an empty array
+    $aRegistrationData[$iNumberOfRecords]['sFirstname']    = $sFirstname;
+    $aRegistrationData[$iNumberOfRecords]['sInsertion']    = $sInsertion;
+    $aRegistrationData[$iNumberOfRecords]['sSurname']      = $sSurname;
+    $aRegistrationData[$iNumberOfRecords]['sStreetname']   = $sStreetname;
+    $aRegistrationData[$iNumberOfRecords]['iHomenumber']   = $iHomenumber;
+    $aRegistrationData[$iNumberOfRecords]['sEmail']        = $sEmail;
+    $aRegistrationData[$iNumberOfRecords]['sUsername']     = $sUsername;
+    $aRegistrationData[$iNumberOfRecords]['sPassword']     = $sPassword;
+    $aRegistrationData[$iNumberOfRecords]['iFunction']     = $iFunction;
+    var_dump($aRegistrationData);
+    
+    // Use JSON to encode the array into a storeable string
+    $aStoringArray = json_encode($aRegistrationData);
+    // Open the file in 'write' modus
+    $JsonFile = fopen('JsonFile.json','w'); 
+    // Save the content of the JSON array into the file
+    file_put_contents('JsonFile.json', $aStoringArray);
+    // Close the file
+    fclose($JsonFile); 
+    
+    // Open the file in 'read' modus
+    $JsonFile = fopen('JsonFile.json','r'); 
+    // Read the JSON array from the file
+    $aJSONArray = file_get_contents('JsonFile.json');
+    // Convert to JSON array back to a PHP array
+    $aFetchedArray = json_decode($aJSONArray,TRUE);
+    // Close the file again            
+    fclose($JsonFile);  
+    echo("<hr/>");
+    var_dump($aFetchedArray);
+
+
+    
+
+
+
+
+
+
 }
 
-echo("<hr/>");
-//// keys                 0    1   2   3
-//$aDemoArray = array("String",4,true,5.4);
-//var_dump($aDemoArray);
-//echo("<hr/>");
-//echo($aDemoArray[3]);
-//echo("<hr/>");
-//$aColors = array(); // Declare an empty array for the colors
-//$aColors['Green'] = "groen";
-//$aColors['Red'] = "rood";
-//$aColors['Blue'] = "blauw";
-//$aColors['Purple'] = "paars";
-//echo("<hr/>");
-//echo("De kleur die u kiest is: ".$aColors['Blue']);
-//echo("<hr/>");
-//$aFruit = array("Appel","Banaan","Sinasappel","Mango","Kiwi","Framboos");
-//var_dump($aFruit);
-//
-//for($iFruitCounter = 0;$iFruitCounter<=5;$iFruitCounter++){
-//  echo("Het lekkerste fruit is de :".$aFruit[$iFruitCounter]."<br/>");
-//}
 
-$aNesting = array("key0","key1","key2","key3","key4","key5","key6");
-$aContent = array("string",2341234,true,34.123,$aNesting);
-//var_dump($aContent);
-
-$aVolvo = array("Volvo","XC90","XC60","V90","V60","S90");
-$aOpel = array("Opel","Corsa","Astra","Mokka","Zafira","Insignia");
-$aTesla = array("Tesla","Model X","Roadster","Model S","Model 3","Model Y");
-$aPeugot = array("Peugot","208","308","2008","508","206","608","3008","5008");
-$aSmart = array("Smart","ForTwo","ForFour","Roadster");
-$aCars = array($aVolvo,$aTesla,$aPeugot,$aOpel,$aSmart);
-//var_dump($aCars);
-echo("<hr>");
-echo("Het model van mijn keuze is: ".$aCars[1][3]."<br/>");
-foreach($aCars as $aModel){
-    echo("Automerk: ".$aModel[0]."<br/>");
-    $iModelCounter = count($aModel);
-    echo("<select name='iCarType'>");
-    for($iCarcounter = 1;$iCarcounter<$iModelCounter;$iCarcounter++){
-        echo("<option value=".$iCarcounter.">".$aModel[$iCarcounter]."</option>");
-    } // end for loop
-    echo("</select><hr/>");
-} // End foreach
-
-echo("<hr/>");
 // ================ Display the registration form =================
 //                      Admin        Manager       Main user              User        Guest
 $aFunctions = array("Администратор","Водитель","Лучший пользователь","Пользователь");
