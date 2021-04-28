@@ -19,17 +19,17 @@ echo("
     <doctype html>
     <html>
     <head>
-      <title>Зарегистрироваться</title>
+      <title>Aanmelden</title>
     </head>
     <body>
-      <h2>Пожалуйста, зарегистрируйтесь</h2>
+      <h2>Aanmelden verplicht</h2>
       <form autocomplete='off' method='post'>
-        <p>Имя пользователя: <input required type='text' name='sUsername'><br/>
-        пароль: <input required type='password' name='sPassword'></p>
-        <input type='submit' value='Зарегистрироваться'>
+        <p>Gebruikersnaam: <input required type='text' name='sUsername'><br/>
+        Wachtwoord: <input required type='password' name='sPassword'></p>
+        <input type='submit' value='Aanmelden'>
       </form>
       <!-- ========= Show a link to the registration page ========== -->
-      <a href='./phpfiles/registration.php'><button>Pегистр</button></a>
+      <a href='./phpfiles/registration.php'><button>Registratie</button></a>
     </body>
     </html>
 ");

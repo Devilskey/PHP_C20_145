@@ -9,74 +9,69 @@
 // Version: v0.1
 //*************************************
 
-// ========================== File saving ========================
+include('./functions_inc.php');
 
+// ========================== File saving =======================
+
+if(!empty($_POST)){                                                             // Check if the form is filled  
+  // Fill the array with the returned data of the readJsonFile.
+  $aRegistrationData = readJsonFile();
+
+  // If empty file create new values
+  if(empty($aRegistrationData)){
+    $aRegistrationData = array();
+    $iArrayCount = 0;
+  } else{
+    // Count the current number of records in the array
+    $iArrayCount = count($aRegistrationData);
+  }
 // ======================== Form handling =======================
-if(!empty($_POST)){                                                             // Check if the form is filled
-  var_dump($_POST);
-  $sFirstname   =   $_POST['sFirstname'];                                       // Forminput fistname
-  $sInsertion   =   $_POST['sInsertion'];                                       // Forminput insertion
-  $sSurname     =   $_POST['sSurname'];                                         // Forminput surname
-  $sStreetname  =   $_POST['sStreetname'];                                      // Forminput streetname
-  $iHomenumber  =   $_POST['iHomenumber'];                                      // Forminput homenumber
-  $sEmail       =   $_POST['sEmail'];                                           // Forminput email address
-  $sUsername    =   $_POST['sUsername'];                                        // Forminput username
-  $sPassword    =   $_POST['sPassword'];                                        // Forminput password
-  $iFunction    =   $_POST['iFunction'];                                        // Forminput function
-}
 
-echo("<hr/>");
-// keys                 0    1   2   3
-$aDemoArray = array("String",4,true,5.4);
-var_dump($aDemoArray);
-echo("<hr/>");
-echo($aDemoArray[3]);
-echo("<hr/>");
-$aColors = array(); // Declare an empty array for the colors
-$aColors['Green'] = "groen";
-$aColors['Red'] = "rood";
-$aColors['Blue'] = "blauw";
-$aColors['Purple'] = "paars";
-echo("<hr/>");
-echo("De kleur die u kiest is: ".$aColors['Blue']);
-echo("<hr/>");
-$aFruit = array("Appel","Banaan","Sinasappel","Mango","Kiwi","Framboos");
-var_dump($aFruit);
-
-for($iFruitCounter = 0;$iFruitCounter<=5;$iFruitCounter++){
-  echo("Het lekkerste fruit is de :".$aFruit[$iFruitCounter]."<br/>");
-}
-
-
+    $sFirstname   =   $_POST['sFirstname'];                                       // Forminput fistname
+    $sInsertion   =   $_POST['sInsertion'];                                       // Forminput insertion
+    $sSurname     =   $_POST['sSurname'];                                         // Forminput surname
+    $sStreetname  =   $_POST['sStreetname'];                                      // Forminput streetname
+    $iHomenumber  =   $_POST['iHomenumber'];                                      // Forminput homenumber
+    $sEmail       =   $_POST['sEmail'];                                           // Forminput email address
+    $sUsername    =   $_POST['sUsername'];                                        // Forminput username  
+    $iFunction    =   $_POST['iFunction'];                                        // Forminput function
+    // Create a new array for this registration
+    $aRegistrationData[$iArrayCount] = array($sFirstname,$sInsertion,$sSurname,$sStreetname,$iHomenumber,$sEmail,$sUsername,$iFunction);
+    // Write the new registation array content to the JSON file
+    writeJsonFile($aRegistrationData);
+  }
+  // Fill the array with the returned data of the readJsonFile.
+  $aRegistrationData = readJsonFile();
+  var_dump($aRegistrationData);
 
 echo("<hr/>");
 // ================ Display the registration form =================
 //                      Admin        Manager       Main user              User        Guest
-$aFunctions = array("Администратор","Водитель","Лучший пользователь","Пользователь");
+$aFunctions = array("Beheerder","Gebruiker","VIP gebruiker","Gast");
 $iTotalFunctions = count($aFunctions);
 echo("
-    <doctype html>
+    <!doctype html>
     <html>
     <head>
-      <title>Форма регистрации</title>
+      <title>Registratie</title>
     </head>
     <body>
-      <h2>Форма регистрации</h2>
+      <p><a href='./editusers.php'>Bewerken gebruikers</a></p><hr/>
+      <h2>Nieuwe registratie</h2>
       <form autocomplete='off' method='post'>
-        <p>Имя: <input type='text' name='sFirstname'></p>
-        <p>вставка: <input type='text' name='sInsertion'></p>
-        <p>Фамилия: <input type='text' name='sSurname'></p>
-        <p>название улицы: <input type='text' name='sStreetname'></p>
-        <p>номер дома: <input type='number' name='iHomenumber'></p>
-        <p>Адрес электронной почты: <input type='text' name='sEmail'></p>
-        <p>Имя пользователя: <input required type='text' name='sUsername'><br/>
-        пароль: <input required type='password' name='sPassword'></p>
-        <p>Должность: <select name='iFunction'>");
+        <p>Voornaam: <input type='text' name='sFirstname'></p>
+        <p>Tussenvoegsel: <input type='text' name='sInsertion'></p>
+        <p>Achternaam: <input type='text' name='sSurname'></p>
+        <p>Straat: <input type='text' name='sStreetname'></p>
+        <p>Huisnummer: <input type='number' name='iHomenumber'></p>
+        <p>E-mail: <input type='text' name='sEmail'></p>
+        <p>Gebruikersnaam: <input required type='text' name='sUsername'><br/>        
+        <p>Functie: <select name='iFunction'>");
         for($iFunctionCounter = 0; $iFunctionCounter < $iTotalFunctions; $iFunctionCounter++){
           echo("<option value='".$iFunctionCounter."'>".$aFunctions[$iFunctionCounter]."</option>");
         }
 echo("        </select></p>
-        <input type='submit' value='Pегистр'>
+        <input type='submit' value='Verzend'>
       </form>      
     </body>
     </html>
