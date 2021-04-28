@@ -11,12 +11,15 @@
 
 include('./functions_inc.php');
 
+
 // ========================== File saving =======================
 
 if(!empty($_POST)){                                                             // Check if the form is filled  
   // Fill the array with the returned data of the readJsonFile.
   $aRegistrationData = readJsonFile();
 
+// ======================== Form handling =======================
+    
   // If empty file create new values
   if(empty($aRegistrationData)){
     $aRegistrationData = array();
@@ -39,12 +42,8 @@ if(!empty($_POST)){                                                             
     $aRegistrationData[$iArrayCount] = array($sFirstname,$sInsertion,$sSurname,$sStreetname,$iHomenumber,$sEmail,$sUsername,$iFunction);
     // Write the new registation array content to the JSON file
     writeJsonFile($aRegistrationData);
-  }
-  // Fill the array with the returned data of the readJsonFile.
-  $aRegistrationData = readJsonFile();
-  var_dump($aRegistrationData);
-
-echo("<hr/>");
+}  
+ 
 // ================ Display the registration form =================
 //                      Admin        Manager       Main user              User        Guest
 $aFunctions = array("Beheerder","Gebruiker","VIP gebruiker","Gast");
